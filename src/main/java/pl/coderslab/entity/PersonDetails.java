@@ -1,20 +1,18 @@
 package pl.coderslab.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "authors")
-public class Author {
-
+public class PersonDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String firstName;
-
     private String lastName;
+    private String streetNumber;
+    private String street;
+    private String city;
 
     public void setId(Long id) {
         this.id = id;
@@ -22,17 +20,6 @@ public class Author {
 
     public Long getId() {
         return id;
-    }
-
-    @ManyToMany(mappedBy = "authorList", fetch = FetchType.EAGER)
-    private List<Book> books = new ArrayList<>();
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
 
     public String getFirstName() {
@@ -51,12 +38,28 @@ public class Author {
         this.lastName = lastName;
     }
 
-    @Override
-    public String toString() {
-        return "Author{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                '}';
+    public String getStreetNumber() {
+        return streetNumber;
     }
+
+    public void setStreetNumber(String streetNumber) {
+        this.streetNumber = streetNumber;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
 }

@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.dao.PublisherDao;
+import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Publisher;
+
+import java.util.List;
 
 @RequestMapping(produces = "text/html; charset=UTF-8")
 @Controller
@@ -28,10 +31,18 @@ public class PublisherController {
 
     @RequestMapping("/publisher/get/{id}")
     @ResponseBody
-    public String getPablisher(@PathVariable long id) {
+    public String getPublisher(@PathVariable long id) {
         Publisher publisher = publisherDao.findById(id);
         return publisher.toString();
     }
+
+    @RequestMapping(path = "/publisher/get/all")
+    @ResponseBody
+    public String getAllPublishers(){
+        List<Publisher> publishers = publisherDao.findAll();
+        return publishers.toString();
+    }
+
 
     @RequestMapping("/publisher/update/{id}/{name}")
     @ResponseBody

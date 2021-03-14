@@ -1,6 +1,10 @@
 package pl.coderslab.entity;
 
+import net.bytebuddy.build.Plugin;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
@@ -15,6 +19,29 @@ public class Book {
 
     @Column(columnDefinition = "TEXT")
     private String description;
+
+    @ManyToOne
+    private Publisher publisher;
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Author> authorList = new ArrayList<>();
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public List<Author> getAuthorList() {
+        return authorList;
+    }
+
+    public void setAuthorList(List<Author> authorList) {
+        this.authorList = authorList;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
 
     public String getTitle() {
         return title;
@@ -48,6 +75,7 @@ public class Book {
         return id;
     }
 
+
     @Override
     public String toString() {
         return "Book{" +
@@ -55,6 +83,8 @@ public class Book {
                 ", title='" + title + '\'' +
                 ", rating=" + rating +
                 ", description='" + description + '\'' +
+                ", publisher=" + publisher +
+                ", authorList=" + authorList +
                 '}';
     }
 }

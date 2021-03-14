@@ -6,6 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import pl.coderslab.dao.AuthorDao;
 import pl.coderslab.entity.Author;
+import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Publisher;
+
+import java.util.List;
+import java.util.Objects;
 
 @RequestMapping(produces = "text/html; charset=UTF-8")
 @Controller
@@ -20,9 +25,13 @@ public class AuthorController {
     @ResponseBody
     public String addAuthor() {
         Author author = new Author();
+        Author author1 = new Author();
+        author1.setFirstName("Adam");
+        author1.setLastName("Mickiewicz");
         author.setFirstName("Szczepan");
         author.setLastName("Twardoch");
         authorDao.saveAuthor(author);
+        authorDao.saveAuthor(author1);
         return "Id dodanego autora to: " + author.getId();
     }
 
@@ -32,6 +41,14 @@ public class AuthorController {
         Author author = authorDao.findById(id);
         return author.toString();
     }
+
+    @RequestMapping(path = "/author/get/all")
+    @ResponseBody
+    public String getAllAuthors(){
+        List<Author> authors = authorDao.findAll();
+        return authors.toString();
+    }
+
 
     @RequestMapping("/author/update/{id}/{firstName}")
     @ResponseBody
