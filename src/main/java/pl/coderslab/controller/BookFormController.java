@@ -37,7 +37,7 @@ public class BookFormController {
     @PostMapping("/addbook")
     public String addBook (Book book){
         bookDao.saveBook(book);
-        return "/book.jsp";
+        return "/addbook.jsp";
     }
 
     @ModelAttribute("publishers")
