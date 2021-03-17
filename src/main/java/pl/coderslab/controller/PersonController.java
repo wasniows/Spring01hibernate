@@ -1,9 +1,8 @@
 package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dao.PersonDao;
 import pl.coderslab.dao.PersonalDetailsDao;
 import pl.coderslab.entity.*;
@@ -18,6 +17,28 @@ public class PersonController {
     public PersonController(PersonDao personDao, PersonalDetailsDao personalDetailsDao) {
         this.personDao = personDao;
         this.personalDetailsDao = personalDetailsDao;
+    }
+
+    @GetMapping("/addperson")
+    public String formAddPerson(Model model){
+        model.addAttribute("person", new Person());
+        return "addPerson.jsp";
+    }
+
+//    @PostMapping("/addperson")
+//    public String formAddPerson(@RequestParam String login, @RequestParam String password, @RequestParam String email){
+//        Person person = new Person();
+//        person.setLogin(login);
+//        person.setPassword(password);
+//        person.setEmail(email);
+//        personDao.savePerson(person);
+//        return "addPerson.jsp";
+//    }
+
+    @PostMapping("/addperson")
+    public String formAddPerson(Person person){
+        personDao.savePerson(person);
+        return "addPerson.jsp";
     }
 
     @RequestMapping( path = "/person/add" )

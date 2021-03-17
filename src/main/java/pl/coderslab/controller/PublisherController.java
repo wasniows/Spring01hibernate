@@ -26,7 +26,13 @@ public class PublisherController {
         Publisher publisher = new Publisher();
         publisher.setName("ZNAK");
         publisherDao.savePublisher(publisher);
-        return "Id dodanego wydawcy to: " + publisher.getId();
+        Publisher publisher1 = new Publisher();
+        publisher1.setName("Czarne");
+        publisherDao.savePublisher(publisher1);
+        Publisher publisher2 = new Publisher();
+        publisher2.setName("Pruszyński");
+        publisherDao.savePublisher(publisher2);
+        return "Saved";
     }
 
     @RequestMapping("/publisher/get/{id}")
