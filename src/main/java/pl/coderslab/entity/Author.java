@@ -16,6 +16,15 @@ public class Author {
 
     private String lastName;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "authors_books",
+            joinColumns = @JoinColumn(name = "author_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id")
+    )
+    private List<Book> books = new ArrayList<>();
+
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -24,8 +33,6 @@ public class Author {
         return id;
     }
 
-    @ManyToMany(mappedBy = "authorList", fetch = FetchType.EAGER)
-    private List<Book> books = new ArrayList<>();
 
     public List<Book> getBooks() {
         return books;

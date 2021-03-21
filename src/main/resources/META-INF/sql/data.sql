@@ -1,0 +1,2 @@
+INSERT INTO authors ( firstName, lastName) VALUES ( 'Szczepan', 'Twardoch'),( 'Adam', 'Mickiewicz'),( 'Stanisław', 'Lem'),( 'Ryszard', 'Kapuściński'),( 'Jerzy', 'Pilch'),( 'Olga', 'Tokarczuk'),( 'Andrzej', 'Sapkowski');
+INSERT INTO publishers ( name) VALUES ( 'Czarne'),( 'Znak'),( 'Pruszyński'),( 'Sowa'),( 'PWST'),( 'Helion'),( 'Czytelnik');

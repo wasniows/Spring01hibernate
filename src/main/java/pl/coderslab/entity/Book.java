@@ -12,9 +12,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
     private int rating;
 
     @Column(columnDefinition = "TEXT")
@@ -23,8 +21,7 @@ public class Book {
     @ManyToOne
     private Publisher publisher;
 
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "books", fetch = FetchType.EAGER)
     private List<Author> authorList = new ArrayList<>();
 
     public Publisher getPublisher() {

@@ -2,12 +2,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Form Book</title>
+    <title>Edit Book</title>
 </head>
 <body>
+
 <%--@elvariable id="book" type="Book"--%>
-<%--@elvariable id="author" type="pl.coderslab.entity.Author"--%>
-<form:form method="post" modelAttribute="book">
+<form:form action="/editbook" method="get" modelAttribute="book">
     <label for="rating">Rating: </label>
     <form:input path="rating"/><br><br>
     <label for="title">Title: </label>
@@ -18,9 +18,9 @@
     <form:select path="publisher.id" items="${publishers}" itemValue="id" itemLabel="name"/><br><br>
     <label>Authors: </label>
     <form:select path="authorList" items="${authors}" itemValue="id" itemLabel="lastName"/><br><br>
-    <input type="submit" value="Dodaj">
+    <form:hidden path="id" />
+    <input type="submit" value="Zmień">
 </form:form>
-
 
 </body>
 </html>
