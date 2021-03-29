@@ -2,13 +2,13 @@ package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dao.PublisherDao;
-import pl.coderslab.entity.Book;
 import pl.coderslab.entity.Publisher;
 
+import javax.validation.Valid;
 import java.util.Collection;
-import java.util.List;
 
 @Controller
 public class PublisherFormController {
@@ -20,48 +20,48 @@ public class PublisherFormController {
     }
 
     @RequestMapping("/deletepublisher/{id}")
-    public String delete(@PathVariable long id){
+    public String delete(@PathVariable long id) {
         Publisher publisher = publisherDao.findById(id);
         publisherDao.delete(publisher);
         return "redirect:/listofpublishers";
     }
 
     @RequestMapping("/editpublisher/{id}")
-    public String edit(@PathVariable long id, Model model){
+    public String edit(@PathVariable long id, Model model) {
         Publisher publisher = publisherDao.findById(id);
         model.addAttribute("publisher", publisher);
-        return "/editPublisher.jsp";
+        return "/editPublisher";
     }
 
     @RequestMapping("/editpublisher")
-    public String edit (Publisher publisher){
+    public String edit(Publisher publisher) {
         publisherDao.update(publisher);
         return "redirect:/listofpublishers";
     }
 
     @GetMapping("/listofpublishers")
-    public String listOfBooks(Model model){
-//        List<Publisher> publishers = publisherDao.findAll();
-//        model.addAttribute("publishers", publishers);
-        return "listOfPublishers.jsp";
+    public String listOfBooks() {
+        return "listOfPublishers";
     }
 
     @GetMapping("/addpublisher")
-    public String form(Model model){
+    public String form(Model model) {
         model.addAttribute("publisher", new Publisher());
-        return "/addPublisher.jsp";
+        return "addPublisher";
     }
 
     @PostMapping("/addpublisher")
-    public String add (Publisher publisher, Model model){
+    public String add(@Valid Publisher publisher, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "addPublisher";
+        }
         publisherDao.savePublisher(publisher);
-//        List<Publisher> publishers = publisherDao.findAll();
-//        model.addAttribute("publishers", publishers);
         return "redirect:/listofpublishers";
     }
 
     @ModelAttribute("publishers")
-    public Collection<Publisher> publishers(){
+    public Collection<Publisher> publishers() {
         return this.publisherDao.findAll();
     }
 }

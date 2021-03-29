@@ -1,8 +1,15 @@
 package pl.coderslab.entity;
 
+import lombok.Data;
+import org.hibernate.validator.constraints.pl.NIP;
+import org.hibernate.validator.constraints.pl.REGON;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
+@Data
 @Table(name = "publishers")
 public class Publisher {
 
@@ -10,29 +17,13 @@ public class Publisher {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
+    @Size(min = 1, message = "{size.name.publisher.min}")
     private String name;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @NIP(message = "{wrong.nip}")
+    private String nip;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Publisher{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
+    @REGON(message = "{wrong.regon}")
+    private String regon;
 }

@@ -16,7 +16,7 @@ public class StudentController {
     @GetMapping("/addstudent")
     public String formStudent(Model model){
         model.addAttribute("student", new Student());
-        return "addStudent.jsp";
+        return "addStudent";
     }
 
     @PostMapping("/addstudent")
@@ -24,6 +24,7 @@ public class StudentController {
     public String showStudent(Student student){
         return student.toString();
     }
+
 
     @ModelAttribute("countries")
     public List<String> countries() {

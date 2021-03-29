@@ -36,6 +36,7 @@
         <th>Publisher</th>
         <th>Description</th>
         <th>Rating</th>
+        <th>Pages</th>
     </tr>
     </thead>
     <tbody>
@@ -53,6 +54,7 @@
             <td>${book.publisher.name}</td>
             <td>${book.description}</td>
             <td>${book.rating}</td>
+            <td>${book.pages}</td>
             <td><a href="/edit/${book.id}">Edytuj</a> <br><br> <a href="/delaccept/${book.id}">Usuń</a>
             </td>
         </tr>
@@ -63,13 +65,8 @@
 </table>
 
 <br> <a href="/addbook">Dodaj nową książkę</a>
-
-
-<%--<c:forEach items="${book.authorList}" var="item">--%>
-<%--    <tr>--%>
-<%--    <td>${item.lastName}</td>        --%>
-<%--    </tr>--%>
-<%--</c:forEach>--%>
+<br> <a href="/listofauthors">Lista autorów</a>
+<br> <a href="/listofpublishers">Lista wydawców</a>
 
 </body>
 </html>

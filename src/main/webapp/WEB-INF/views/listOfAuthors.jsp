@@ -55,6 +55,7 @@
 </table>
 
 <br> <a href="/addauthor">Dodaj nowego autora</a>
+<br> <a href="/listofbooks">Lista książek</a>
 
 </body>
 </html>
