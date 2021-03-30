@@ -35,16 +35,15 @@ public class AuthorFormController {
     public String editBook(@PathVariable long id, Model model){
         Author author = authorDao.findById(id);
         model.addAttribute("author", author);
-        return "/editAuthor";
+        return "editAuthor";
     }
 
     @RequestMapping("/editauthor")
     public String editAuthor (@Valid Author author, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()){
-
+            return "editAuthor";
         }
-
         authorDao.update(author);
         return "redirect:/listofauthors";
     }
@@ -53,22 +52,22 @@ public class AuthorFormController {
     public String listOfBooks(Model model){
         List<Author> authors = authorDao.findAll();
         model.addAttribute("authors", authors);
-        return "listOfAuthors";
+        return "/listOfAuthors";
     }
 
     @GetMapping("/addauthor")
     public String formBook(Model model){
         model.addAttribute("author", new Author());
-        return "/addAuthor";
+        return "addAuthor";
     }
 
     @PostMapping("/addauthor")
-    public String addBook (Author author, Model model){
+    public String addBook (@Valid Author author, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()){
+            return "addAuthor";
+        }
         authorDao.saveAuthor(author);
-        List<Book> books = bookDao.findAll();
-        model.addAttribute("books", books);
-        List<Author> authors = authorDao.findAll();
-        model.addAttribute("authors", authors);
         return "redirect:/listofauthors";
     }
 

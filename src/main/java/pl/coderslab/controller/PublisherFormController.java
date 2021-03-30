@@ -30,17 +30,21 @@ public class PublisherFormController {
     public String edit(@PathVariable long id, Model model) {
         Publisher publisher = publisherDao.findById(id);
         model.addAttribute("publisher", publisher);
-        return "/editPublisher";
+        return "editPublisher";
     }
 
     @RequestMapping("/editpublisher")
-    public String edit(Publisher publisher) {
+    public String edit(@Valid Publisher publisher, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()){
+            return "editPublisher";
+        }
         publisherDao.update(publisher);
         return "redirect:/listofpublishers";
     }
 
     @GetMapping("/listofpublishers")
-    public String listOfBooks() {
+    public String list() {
         return "listOfPublishers";
     }
 

@@ -1,6 +1,7 @@
 package pl.coderslab.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.pl.NIP;
 import org.hibernate.validator.constraints.pl.REGON;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "publishers")
 public class Publisher {
 

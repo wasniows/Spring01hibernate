@@ -3,45 +3,47 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>List of books</title>
+    <title>Books</title>
 
-    <style>
-        table {
-            border-collapse: collapse;
-        }
-
-        table, th, td {
-            border: 1px solid grey;
-        }
-
-        th, td {
-            text-align: center;
-            padding: 6px;
-        }
-
-        tr {
-            background-color: #F2F2F2;
-        }
-    </style>
-
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 <body>
 
-<table>
-    <caption>List of books</caption>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <div class="navbar-nav">
+            <a href="/listofbooks" class="nav-link nav-item active">Książki</a>
+            <a href="/listofpublishers" class="nav-link nav-item">Wydawcy</a>
+            <a href="/listofauthors" class="nav-link nav-item">Autorzy</a>
+        </div>
+    </div>
+</nav>
+
+<div class=" bg-success text-white text-center">
+    <div class="container">
+        <h3 class="display-4">Książki</h3>
+    </div>
+</div>
+<% int num = 1; %>
+<table class="table">
     <thead>
     <tr>
-        <th>Title</th>
-        <th>Authors</th>
-        <th>Publisher</th>
-        <th>Description</th>
-        <th>Rating</th>
-        <th>Pages</th>
+        <th>#</th>
+        <th>Tytuł</th>
+        <th>Autorzy</th>
+        <th>Wydawca</th>
+        <th>Opis</th>
+        <th>Ranking</th>
+        <th>Liczba stron</th>
+        <th>Kategoria</th>
     </tr>
     </thead>
     <tbody>
     <c:forEach items='${books}' var="book">
         <tr>
+            <td><%=num%></td>
             <td>${book.title}</td>
 
             <td>
@@ -55,18 +57,30 @@
             <td>${book.description}</td>
             <td>${book.rating}</td>
             <td>${book.pages}</td>
-            <td><a href="/edit/${book.id}">Edytuj</a> <br><br> <a href="/delaccept/${book.id}">Usuń</a>
+            <td>${book.category.name}</td>
+            <td>
+                <form action="/edit/${book.id}">
+                    <button class="btn btn-outline-primary btn-sm">edytuj</button>
+                </form>
+            </td>
+            <td>
+                <form action="/delaccept/${book.id}">
+                    <button class="btn btn-outline-danger btn-sm">usuń</button>
+                </form>
             </td>
         </tr>
+        <%num = num + 1;%>
     </c:forEach>
-
     </tbody>
-
 </table>
 
-<br> <a href="/addbook">Dodaj nową książkę</a>
-<br> <a href="/listofauthors">Lista autorów</a>
-<br> <a href="/listofpublishers">Lista wydawców</a>
+<div class="row">
+    <div class="col-3 pl-5">
+        <form action="/addbookform">
+            <button class="btn btn-outline-success">Dodaj książkę</button>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

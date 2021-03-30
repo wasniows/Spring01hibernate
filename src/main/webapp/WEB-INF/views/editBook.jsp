@@ -3,35 +3,76 @@
 <html>
 <head>
     <title>Edit Book</title>
-    <style>
-        .error{
-            color: #856404;
-        }
-    </style>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
 <body>
-
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <div class="navbar-nav">
+            <a href="/listofbooks" class="nav-link nav-item">Książki</a>
+            <a href="/listofpublishers" class="nav-link nav-item">Wydawcy</a>
+            <a href="/listofauthors" class="nav-link nav-item">Autorzy</a>
+        </div>
+    </div>
+</nav>
+<div class=" bg-success text-white text-center">
+    <div class="container">
+        <h3 class="display-4">Edycja książki</h3>
+    </div>
+</div>
 <%--@elvariable id="book" type="Book"--%>
-<form:form action="/editbook" method="get" modelAttribute="book">
-    <label for="rating">Rating: </label>
-    <form:input path="rating" type="number" min="1" max="10" value="1"/><br>
-    <form:errors path="rating" cssClass="error"/> <br><br>
-    <label for="title">Title: </label>
-    <form:input path="title"/><br>
-    <form:errors path="title" cssClass="error"/> <br><br>
-    <label>Description: </label>
-    <form:textarea path="description" /><br><br>
-    <label>Publisher: </label>
-    <form:select path="publisher.id" items="${publishers}" itemValue="id" itemLabel="name"/><br><br>
-    <label>Authors: </label>
-    <form:select path="authorList" items="${authors}" itemValue="id" itemLabel="lastName"/><br>
-    <form:errors path="authorList" cssClass="error"/> <br><br>
-    <label>Pages: </label>
-    <form:input path="pages" type="number" min="1"/><br>
-    <form:errors path="pages" cssClass="error"/> <br><br>
-    <form:hidden path="id" />
-    <input type="submit" value="Zmień">
-</form:form>
+<%--@elvariable id="author" type="pl.coderslab.entity.Author"--%>
 
+<div class="container pt-5">
+    <form:form method="post" modelAttribute="book" action="/addbook">
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="title">Tytuł</label>
+                <form:input path="title" cssClass="form-control"/>
+                <small><form:errors path="title" cssClass="alert-danger"/></small>
+            </div>
+            <div class="form-group col-6">
+                <label for="description">Opis</label>
+                <form:textarea path="description" cssClass="form-control"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="authorList">Autorzy</label>
+                <form:select path="authorList" items="${authors}" itemValue="id" itemLabel="name" cssClass="form-control"/>
+                <small><form:errors path="authorList" cssClass="alert-danger"/></small>
+            </div>
+            <div class="form-group col-6">
+                <label for="publisher.id">Wydawca</label>
+                <form:select path="publisher.id" items="${publishers}" itemValue="id" itemLabel="name" cssClass="form-control"/>
+                <small><form:errors path="publisher.id" cssClass="alert-danger"/></small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="category.id">Kategoria</label>
+                <form:select path="category.id" items="${categories}" itemValue="id" itemLabel="name" cssClass="form-control"/>
+                <small><form:errors path="category.id" cssClass="alert-danger"/></small>
+            </div>
+            <div class="form-group col-6">
+                <label for="pages">Liczba stron</label>
+                <form:input path="pages" type="number" min="1" value="256" cssClass="form-control"/>
+                <small><form:errors path="pages" cssClass="alert-danger"/></small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-6">
+                <label for="rating">Ranking</label>
+                <form:input path="rating" type="number" min="1" max="10" value="1" cssClass="form-control"/>
+                <small><form:errors path="rating" cssClass="alert-danger"/></small>
+            </div>
+        </div>
+        <form:hidden path="id" />
+        <button type="submit" class="btn btn-primary" >Zmień</button>
+    </form:form>
+</div>
 </body>
 </html>

@@ -10,8 +10,10 @@ import pl.coderslab.dao.BookDao;
 import pl.coderslab.dao.PublisherDao;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
+import pl.coderslab.entity.Category;
 import pl.coderslab.entity.Publisher;
 import pl.coderslab.repository.BookRepository;
+import pl.coderslab.repository.CategoryRepository;
 
 import javax.validation.Valid;
 import java.util.Collection;
@@ -24,6 +26,7 @@ public class BookFormController {
     private final PublisherDao publisherDao;
     private final AuthorDao authorDao;
     private final BookRepository bookRepository;
+    private final CategoryRepository categoryRepository;
 
     @GetMapping("test")
     String test(){
@@ -31,21 +34,21 @@ public class BookFormController {
     }
 
 
-    @GetMapping(value = "form/book/search", params = "title")
-    String findAllBooksByTitle(@RequestParam("title") String title, Model model){
-
-        List<Book> books = bookRepository.findAllByTitle(title);
-        model.addAttribute("books", books);
-        return "listOfBooks";
-    }
-
-    @GetMapping(value = "form/book/search", params = "author")
-    String findAllBooksByAuthor(@RequestParam("author") Author author, Model model){
-
-        List<Book> books = bookRepository.findAllByAuthorList(author);
-        model.addAttribute("books", books);
-        return "listOfBooks";
-    }
+//    @GetMapping(value = "form/book/search", params = "title")
+//    String findAllBooksByTitle(@RequestParam("title") String title, Model model){
+//
+//        List<Book> books = bookRepository.findAllByTitle(title);
+//        model.addAttribute("books", books);
+//        return "listOfBooks";
+//    }
+//
+//    @GetMapping(value = "form/book/search", params = "author")
+//    String findAllBooksByAuthor(@RequestParam("author") Author author, Model model){
+//
+//        List<Book> books = bookRepository.findAllByAuthorList(author);
+//        model.addAttribute("books", books);
+//        return "listOfBooks";
+//    }
 
     @RequestMapping("/delaccept/{id}")
     public String delAccept(Model model, @PathVariable long id) {
@@ -64,7 +67,7 @@ public class BookFormController {
     public String editBook(@Valid Book book, BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()){
-            return "/editBook";
+            return "editBook";
         }
 
         bookDao.update(book);
@@ -76,7 +79,7 @@ public class BookFormController {
     public String editBook(@PathVariable long id, Model model) {
         Book book = bookDao.findById(id);
         model.addAttribute("book", book);
-        return "/editBook";
+        return "editBook";
     }
 
     @GetMapping("/listofbooks")
@@ -86,10 +89,10 @@ public class BookFormController {
         return "listOfBooks";
     }
 
-    @GetMapping("/addbook")
+    @GetMapping("/addbookform")
     public String formBook(Model model) {
         model.addAttribute("book", new Book());
-        return "/addBook";
+        return "addBook";
     }
 
     @PostMapping("/addbook")
@@ -98,7 +101,6 @@ public class BookFormController {
         if (bindingResult.hasErrors()) {
             return "addBook";
         }
-
         bookDao.saveBook(book);
         return "redirect:/listofbooks";
     }
@@ -115,6 +117,11 @@ public class BookFormController {
 
     @ModelAttribute("books")
     public Collection<Book> books() {
-        return this.bookDao.findAll();
+        return this.bookRepository.findAll();
+    }
+
+    @ModelAttribute("categories")
+    public Collection<Category> categories(){
+        return this.categoryRepository.findAll();
     }
 }

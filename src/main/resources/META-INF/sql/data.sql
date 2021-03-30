@@ -1,2 +1,3 @@
 INSERT INTO authors ( firstName, lastName) VALUES ( 'Szczepan', 'Twardoch'),( 'Adam', 'Mickiewicz'),( 'Stanislaw', 'Lem'),( 'Ryszard', 'Kapuscinski'),( 'Jerzy', 'Pilch'),( 'Olga', 'Tokarczuk'),( 'Andrzej', 'Sapkowski');
-INSERT INTO publishers ( name) VALUES ( 'Czarne'),( 'Znak'),( 'Pruszynski'),( 'Sowa'),( 'PWST'),( 'Helion'),( 'Czytelnik');
+INSERT INTO publishers ( name, nip, regon) VALUES ( 'Czarne','9520894729','816188740'),( 'Znak','3564253746','531681871'),( 'Sowa','7989423305','514086707'),( 'Helion','3413938920','037523031');
+INSERT INTO categories (name) VALUE ('Fantasy'), ('Biografia'), ('Sport'), ('Kulinarne');
