@@ -34,21 +34,45 @@ public class BookFormController {
     }
 
 
-//    @GetMapping(value = "form/book/search", params = "title")
-//    String findAllBooksByTitle(@RequestParam("title") String title, Model model){
-//
-//        List<Book> books = bookRepository.findAllByTitle(title);
-//        model.addAttribute("books", books);
-//        return "listOfBooks";
-//    }
-//
-//    @GetMapping(value = "form/book/search", params = "author")
-//    String findAllBooksByAuthor(@RequestParam("author") Author author, Model model){
-//
-//        List<Book> books = bookRepository.findAllByAuthorList(author);
-//        model.addAttribute("books", books);
-//        return "listOfBooks";
-//    }
+    @GetMapping(value = "form/book/search", params = "title")
+    String findAllBooksByTitle(@RequestParam("title") String title, Model model){
+
+        List<Book> books = bookRepository.findAllByTitle(title);
+        model.addAttribute("books", books);
+        return "listOfBooks";
+    }
+
+    @GetMapping(value = "form/book/search", params = "author")
+    String findAll(@RequestParam("author") Author author, Model model){
+
+        List<Book> books = bookRepository.findAllByAuthorList(author);
+        model.addAttribute("books", books);
+        return "listOfBooks";
+    }
+
+    @GetMapping(value = "form/book/search", params = "categoryId")
+    String findAll(@RequestParam("categoryId") Long categoryId, Model model){
+
+        List<Book> books = bookRepository.findAllByCategoryId(categoryId);
+        model.addAttribute("books", books);
+        return "listOfBooks";
+    }
+
+    @GetMapping(value = "form/book/search", params = "categoryName")
+    String findAllByCategory(@RequestParam("categoryName") String categoryName, Model model){
+
+        List<Book> books = bookRepository.findAllByCategoryName(categoryName);
+        model.addAttribute("books", books);
+        return "listOfBooks";
+    }
+
+    @GetMapping(value = "form/book/search", params = "firstByCategoryOrderByTitle")
+    String findAllFirstByCategoryName(@RequestParam("firstByCategoryOrderByTitle") String firstByCategoryOrderByTitle, Model model){
+
+        List<Book> books = bookRepository.findFirstByCategoryNameOrderByTitle(firstByCategoryOrderByTitle);
+        model.addAttribute("books", books);
+        return "listOfBooks";
+    }
 
     @RequestMapping("/delaccept/{id}")
     public String delAccept(Model model, @PathVariable long id) {

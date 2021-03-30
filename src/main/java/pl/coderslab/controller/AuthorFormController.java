@@ -1,5 +1,6 @@
 package pl.coderslab.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,20 +9,44 @@ import pl.coderslab.dao.AuthorDao;
 import pl.coderslab.dao.BookDao;
 import pl.coderslab.entity.Author;
 import pl.coderslab.entity.Book;
+import pl.coderslab.repository.AuthorRepository;
 
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class AuthorFormController {
 
     private final BookDao bookDao;
     private final AuthorDao authorDao;
+    private final AuthorRepository authorRepository;
 
-    public AuthorFormController(BookDao bookDao, AuthorDao authorDao) {
-        this.bookDao = bookDao;
-        this.authorDao = authorDao;
+
+
+    @GetMapping(value = "form/author/search", params = "pesel")
+    String findAllByPesel(@RequestParam("pesel") String pesel, Model model){
+
+        List<Author> authors = authorRepository.findAllByPesel(pesel);
+        model.addAttribute("authors", authors);
+        return "listOfAuthors";
+    }
+
+    @GetMapping(value = "form/author/search", params = "email")
+    String findAllByEmail(@RequestParam("email") String email, Model model){
+
+        List<Author> authors = authorRepository.findAllByEmail(email);
+        model.addAttribute("authors", authors);
+        return "listOfAuthors";
+    }
+
+    @GetMapping(value = "form/author/search", params = "lastName")
+    String findAllByLastName(@RequestParam("lastName") String lastName, Model model){
+
+        List<Author> authors = authorRepository.findAllByLastName(lastName);
+        model.addAttribute("authors", authors);
+        return "listOfAuthors";
     }
 
     @RequestMapping("/deleteauthor/{id}")
